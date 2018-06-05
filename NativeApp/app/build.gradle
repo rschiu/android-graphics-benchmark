@@ -27,7 +27,7 @@ android {
     sourceSets {
         main {
             jniLibs {
-                srcDir "agbenchmark/lib"
+                srcDir "agq/lib"
             }
         }
     }

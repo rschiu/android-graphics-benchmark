@@ -16,10 +16,11 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
-set(AGBENCHMARK_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../agbenchmark)
-set(AGBENCHMARK_INCLUDE_DIR ${AGBENCHMARK_DIR}/include)
+# Set directory for Android Game Qualification library.
+set(AGQ_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../agq)
+set(AGQ_INCLUDE_DIR ${AGQ_DIR}/include)
 
-link_directories(${AGBENCHMARK_DIR}/lib/${ANDROID_ABI})
+link_directories(${AGQ_DIR}/lib/${ANDROID_ABI})
 
 # build native_app_glue as a static lib
 set(${CMAKE_C_FLAGS}, "${CMAKE_C_FLAGS}")
@@ -36,7 +37,7 @@ set(CMAKE_SHARED_LINKER_FLAGS
 
 add_library(native-activity SHARED main.cpp)
 
-include_directories(native-activity ${AGBENCHMARK_INCLUDE_DIR})
+include_directories(native-activity ${AGQ_INCLUDE_DIR})
 
 target_include_directories(native-activity PRIVATE
     ${ANDROID_NDK}/sources/android/native_app_glue)
@@ -45,7 +46,7 @@ target_include_directories(native-activity PRIVATE
 target_link_libraries(native-activity
     android
     native_app_glue
-    agbench
+    agq
     EGL
     GLESv1_CM
     log)

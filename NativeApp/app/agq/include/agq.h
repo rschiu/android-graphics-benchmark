@@ -14,39 +14,39 @@
  * limitations under the License.
  */
 
-#ifndef ANDROID_GRAPHICS_BENCHMARK_H
-#define ANDROID_GRAPHICS_BENCHMARK_H
+#ifndef AGQ_H
+#define AGQ_H
 
 #include <jni.h>
 #include <android/native_activity.h>
 
 namespace android {
 
-class AndroidGraphicsBenchmark {
+class GameQualification {
 private:
     class Impl;
     Impl* mImpl;
 
-    AndroidGraphicsBenchmark(const AndroidGraphicsBenchmark& that);
+    GameQualification(const GameQualification& that);
 public:
-    AndroidGraphicsBenchmark();
-    ~AndroidGraphicsBenchmark();
+    GameQualification();
+    ~GameQualification();
 
     /*
-     * Signal Android Graphics Benchmark the start of a loop.
+     * Signal Android Game Qualification library the start of a loop.
      *
      * For use with app with JNI.  context should be a jobject of type android.content.Context.
      */
-    void startBenchmark(jobject context);
+    void startLoop(jobject context);
 
     /*
-     * Signal Android Graphics Benchmark the start of a loop.
+     * Signal Android Game Qualification library the start of a loop.
      *
      * For use with pure native app using ANativeActivity.
      */
-    void startBenchmark(ANativeActivity* activity);
+    void startLoop(ANativeActivity* activity);
 };
 
 } // end of namespace android
 
-#endif // ANDROID_GRAPHICS_BENCHMARK_H
+#endif // AGQ_H

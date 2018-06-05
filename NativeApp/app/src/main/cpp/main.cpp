@@ -32,7 +32,7 @@
 #include <android/log.h>
 #include <android_native_app_glue.h>
 
-#include <android_benchmark.h>
+#include <agq.h>
 
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "native-activity", __VA_ARGS__))
 #define LOGW(...) ((void)__android_log_print(ANDROID_LOG_WARN, "native-activity", __VA_ARGS__))
@@ -199,7 +199,7 @@ static void engine_term_display(struct engine* engine) {
  */
 static int32_t engine_handle_input(struct android_app* app, AInputEvent* event) {
     struct engine* engine = (struct engine*)app->userData;
-    static android::AndroidGraphicsBenchmark benchmark;
+    static android::GameQualification agq;
   LOGI("0x%x", AInputEvent_getType(event));
     if (AInputEvent_getType(event) == AINPUT_EVENT_TYPE_MOTION) {
         engine->animating = 1;
@@ -210,7 +210,7 @@ static int32_t engine_handle_input(struct android_app* app, AInputEvent* event) 
                 int action =
                     AKeyEvent_getAction(event) & AMOTION_EVENT_ACTION_MASK;
                 if (action == AMOTION_EVENT_ACTION_DOWN) {
-                    benchmark.startBenchmark(app->activity);
+                    agq.startLoop(app->activity);
                 }
                 break;
             }
