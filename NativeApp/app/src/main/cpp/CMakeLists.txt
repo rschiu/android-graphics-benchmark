@@ -16,19 +16,31 @@
 
 cmake_minimum_required(VERSION 3.4.1)
 
+set(${CMAKE_C_FLAGS}, "${CMAKE_C_FLAGS}")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11 -Wall -Werror")
+
 # Set directory for Android Game Qualification library.
 set(AGQ_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../../agq)
 set(AGQ_INCLUDE_DIR ${AGQ_DIR}/include)
 
 link_directories(${AGQ_DIR}/lib/${ANDROID_ABI})
 
+# To build the agq library from source, comment the link_directories line above and uncomment the
+# following.  Also, remove the "sourceSets { main { jniLibs { srcDir "agq/lib" } } }" block from
+# NativeApp/app/build.gradle to avoid duplicate.
+# The agq library is duplicated from
+# https://android.googlesource.com/platform/tools/test/graphicsbenchmark/+/master/benchmark_libs
+
+#add_library(agq SHARED ${AGQ_DIR}/src/agq.cpp)
+#include_directories(agq ${AGQ_INCLUDE_DIR})
+#target_link_libraries(agq log)
+
 # build native_app_glue as a static lib
-set(${CMAKE_C_FLAGS}, "${CMAKE_C_FLAGS}")
 add_library(native_app_glue STATIC
     ${ANDROID_NDK}/sources/android/native_app_glue/android_native_app_glue.c)
 
+
 # now build app's shared lib
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++11 -Wall -Werror")
 
 # Export ANativeActivity_onCreate(),
 # Refer to: https://github.com/android-ndk/ndk/issues/381.

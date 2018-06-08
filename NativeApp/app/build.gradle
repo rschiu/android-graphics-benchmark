@@ -20,9 +20,16 @@ android {
         }
     }
     externalNativeBuild {
+        // If you are using NDK version < 12, you can comment out the cmake{} block and uncomment
+        // the ndkBuild{} block in order to use the provided Android.mk to build the native library
+        // instead.  Also, be sure to command the sourceSets{main{jniLibs{}}} block to avoid
+        // duplicated library.
         cmake {
             path 'src/main/cpp/CMakeLists.txt'
         }
+//        ndkBuild {
+//            path 'src/main/cpp/Android.mk'
+//        }
     }
     sourceSets {
         main {
